@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 import random
 
-# Category -> list of (word, clue) tuples
 word_categories = {
     "Fruits": [
         ("apple", "Keeps the doctor away"),
@@ -33,7 +32,6 @@ word_categories = {
     ]
 }
 
-# Global state
 word_list = []
 current_index = 0
 word = ""
@@ -43,7 +41,6 @@ wrong_guesses = 0
 max_guesses = 6
 display_word = []
 
-# Draw hangman
 def draw_hangman(stage):
     canvas.delete("all")
     canvas.create_line(20, 180, 180, 180, width=2)
@@ -64,7 +61,6 @@ def draw_hangman(stage):
     if stage > 5:
         canvas.create_line(120, 130, 150, 160, width=2)
 
-# Start or continue game
 def start_next_word():
     global current_index, word, clue, display_word, guessed_letters, wrong_guesses
 
@@ -86,7 +82,6 @@ def start_next_word():
     result_label.config(text="")
     entry.focus()
 
-# Ask if user wants to play again
 def ask_to_continue():
     response = messagebox.askyesno("Play Again?", "🎉 You've completed this category!\nDo you want to play again?")
     if response:
@@ -95,7 +90,6 @@ def ask_to_continue():
     else:
         root.destroy()
 
-# Process guess
 def make_guess():
     global wrong_guesses
     guess = entry.get().lower()
@@ -130,12 +124,10 @@ def make_guess():
         result_label.config(text=f"💀 Game Over! The word was '{word}'.")
         root.after(1500, start_next_word)
 
-# Update display
 def update_display():
     word_label.config(text="Word: " + " ".join(display_word))
     letters_label.config(text="Guessed: " + ", ".join(guessed_letters))
 
-# Handle category selection
 def select_category(cat):
     global word_list, current_index
     category_frame.pack_forget()
@@ -144,13 +136,11 @@ def select_category(cat):
     current_index = 0
     start_next_word()
 
-# GUI setup
 root = tk.Tk()
 root.title("🎯 Hangman Game with Categories & Clues")
 root.geometry("430x550")
 root.resizable(False, False)
 
-# Category screen
 category_frame = tk.Frame(root)
 category_frame.pack(pady=30)
 
@@ -158,8 +148,7 @@ tk.Label(category_frame, text="Select a Category", font=("Helvetica", 16)).pack(
 
 for cat in word_categories:
     tk.Button(category_frame, text=cat, width=20, command=lambda c=cat: select_category(c)).pack(pady=5)
-
-# Game screen
+    
 game_frame = tk.Frame(root)
 
 canvas = tk.Canvas(game_frame, width=200, height=200)
