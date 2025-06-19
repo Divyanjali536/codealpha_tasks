@@ -132,7 +132,7 @@ def select_category(cat):
     global word_list, current_index
     category_frame.pack_forget()
     game_frame.pack()
-    word_list = random.sample(word_categories[cat], len(word_categories[cat]))  # Shuffle words
+    word_list = random.sample(word_categories[cat], len(word_categories[cat]))  
     current_index = 0
     start_next_word()
 
@@ -165,7 +165,7 @@ letters_label.pack()
 
 entry = tk.Entry(game_frame, font=("Helvetica", 14), width=5, justify='center')
 entry.pack(pady=10)
-entry.bind("<Return>", lambda event: make_guess())  # 🔥 Enter key triggers guess
+entry.bind("<Return>", lambda event: make_guess())
 
 guess_button = tk.Button(game_frame, text="Guess", command=make_guess)
 guess_button.pack()
